@@ -14,6 +14,10 @@ public class Ball
 	private double yPosition;			// The Y coordinate of this Ball
 	private double size;				// The diameter of this Ball
 	private String colour = "WHITE";	// The colour of this Ball
+	private double mod;
+	private double ymod;
+	private double Pmod;
+	private double Pymod;
 
 										// Permissable colours are 8 bit hexadecimal 
                                         // RGB values in the format #RRGGBB. e.g.
@@ -77,12 +81,78 @@ public class Ball
 	}
 
 
-	public Ball(double x, double y, double diameter, String col)
+	public Ball(double x, double y, double diameter, String col, double xmod, double yymod)
 	{
 		xPosition = x;
 		yPosition = y;
 
 		size = diameter;
 		colour = col;
+		
+		mod = xmod;
+		ymod = yymod;
 	}	
+	
+	public void move()
+	{
+		this.xPosition = xPosition + mod;
+		this.yPosition = yPosition + ymod;
+		if(xPosition > 799)
+		{
+			mod = mod*-1;
+		}
+		if(xPosition < 1)
+		{
+			mod = mod*-1;
+		}
+		if(yPosition > 599)
+		{
+			ymod = ymod*-1;			
+		}
+		if(yPosition < 1)
+		{
+			ymod = ymod*-1;
+		}
+	}
+	
+	public void incPmod(double i)
+	{
+		Pmod = Pmod + i;
+	}
+	
+	public void incPymod(double i)
+	{
+		Pymod = Pymod + i;
+	}
+	public void slowPlayer()
+	{
+		Pmod = (Pmod / 1.1);
+		Pymod = (Pymod / 1.1);
+	}
+	
+	public void playerMove()
+	{
+		this.xPosition = xPosition + Pmod;
+		this.yPosition = yPosition + Pymod;
+		if(xPosition > 799)
+		{
+			this.xPosition = 799;
+			Pmod = Pmod*-1;
+		}
+		if(xPosition < 1)
+		{
+			this.xPosition = 1;
+			Pmod = Pmod*-1;
+		}
+		if(yPosition > 599)
+		{
+			this.yPosition = 599;
+			Pymod = Pymod*-1;			
+		}
+		if(yPosition < 1)
+		{
+			this.yPosition = 1;
+			Pymod = Pymod*-1;
+		}
+	}
 }
